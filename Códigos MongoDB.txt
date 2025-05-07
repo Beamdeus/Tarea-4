@@ -1,0 +1,264 @@
+Códigos MongoDB
+
+Código le los datos 
+
+Usuarios:
+db.usuarios.insertMany([
+  { "id": 1, "usuario": "maria_gomez", "email": "maria.gomez@example.com", "nombre": "María Gómez", "edad": 28, "fecha_creacion": "15/01/2025" },
+  { "id": 2, "usuario": "carlos_tech", "email": "carlos.tech@example.com", "nombre": "Carlos Rodríguez", "edad": 38, "fecha_creacion": "20/01/2025" },
+  { "id": 3, "usuario": "laura_art", "email": "laura.art@example.com", "nombre": "Laura Fernández", "edad": 24, "fecha_creacion": "25/01/2025" },
+  { "id": 4, "usuario": "javier_music", "email": "javier.music@example.com", "nombre": "Javier López", "edad": 32, "fecha_creacion": "30/01/2025" },
+  { "id": 5, "usuario": "ana_travel", "email": "ana.travel@example.com", "nombre": "Ana Martínez", "edad": 29, "fecha_creacion": "05/02/2025" },
+  { "id": 6, "usuario": "david_sport", "email": "david.sport@example.com", "nombre": "David García", "edad": 35, "fecha_creacion": "10/02/2025" },
+  { "id": 7, "usuario": "sofia_books", "email": "sofia.books@example.com", "nombre": "Sofía Ramírez", "edad": 27, "fecha_creacion": "15/02/2025" },
+  { "id": 8, "usuario": "pablo_photo", "email": "pablo.photo@example.com", "nombre": "Pablo Sánchez", "edad": 31, "fecha_creacion": "20/02/2025" },
+  { "id": 9, "usuario": "elena_food", "email": "elena.food@example.com", "nombre": "Elena Díaz", "edad": 26, "fecha_creacion": "25/02/2025" },
+  { "id": 10, "usuario": "miguel_tech", "email": "miguel.tech@example.com", "nombre": "Miguel Pérez", "edad": 40, "fecha_creacion": "01/03/2025" }
+]);
+ 
+Publicaciones:
+db.publicaciones.insertMany([
+  { "id": 1, "id_usuario": 1, "contenido": "Hoy es un gran día para empezar nuevos proyectos!", "fecha_publicacion": "20/01/2025" },
+  { "id": 2, "id_usuario": 1, "contenido": "Acabo de terminar mi último desarrollo en JavaScript. ¡Qué satisfacción!", "fecha_publicacion": "25/01/2025" },
+  { "id": 3, "id_usuario": 1, "contenido": "Nueva obra de arte terminada. Pronto en mi galería.", "fecha_publicacion": "30/01/2025" },
+  { "id": 4, "id_usuario": 1, "contenido": "Compartiendo mi nueva canción en Spotify. ¡Espero que les guste!", "fecha_publicacion": "05/02/2025" },
+  { "id": 5, "id_usuario": 2, "contenido": "Recomendaciones para viajar a Japón en primavera?", "fecha_publicacion": "10/02/2025" },
+  { "id": 6, "id_usuario": 2, "contenido": "Entrenamiento completado: 10km en 45 minutos. ¡Nuevo récord personal!", "fecha_publicacion": "15/02/2025" },
+  { "id": 7, "id_usuario": 3, "contenido": "Terminé de leer 'Cien años de soledad'. ¡Qué maravilla de libro!", "fecha_publicacion": "20/02/2025" },
+  { "id": 8, "id_usuario": 3, "contenido": "Fotos del atardecer en la playa. La naturaleza es increíble.", "fecha_publicacion": "25/02/2025" },
+  { "id": 9, "id_usuario": 3, "contenido": "Receta nueva en mi blog: pastel de chocolate sin harina.", "fecha_publicacion": "01/03/2025" },
+  { "id": 10, "id_usuario": 4, "contenido": "Tutorial sobre cómo usar MongoDB con Node.js ahora disponible en mi canal.", "fecha_publicacion": "05/03/2025" },
+  { "id": 11, "id_usuario": 5, "contenido": "Nuevo diseño de interfaz para la app móvil. ¿Qué opinan?", "fecha_publicacion": "10/03/2025" },
+  { "id": 12, "id_usuario": 5, "contenido": "Gané mi primer torneo online de Valorant! #Feliz", "fecha_publicacion": "15/03/2025" },
+  { "id": 13, "id_usuario": 5, "contenido": "Rutina de ejercicio matutina completada. ¡Día productivo!", "fecha_publicacion": "20/03/2025" },
+  { "id": 14, "id_usuario": 5, "contenido": "Grabando nuevo material para el próximo álbum. #Música", "fecha_publicacion": "25/03/2025" },
+  { "id": 15, "id_usuario": 5, "contenido": "Exposición de arte urbano este fin de semana. No se lo pierdan!", "fecha_publicacion": "30/03/2025" },
+  { "id": 16, "id_usuario": 6, "contenido": "Ruta en bicicleta de montaña completada: 35km de aventura.", "fecha_publicacion": "01/04/2025" },
+  { "id": 17, "id_usuario": 6, "contenido": "Fotografías del festival de luces ahora en mi portafolio.", "fecha_publicacion": "05/04/2025" },
+  { "id": 18, "id_usuario": 6, "contenido": "Nuevo framework que estoy desarrollando. Próximamente en GitHub.", "fecha_publicacion": "10/04/2025" },
+  { "id": 19, "id_usuario": 7, "contenido": "Recomienden sus libros favoritos de ciencia ficción.", "fecha_publicacion": "15/04/2025" },
+  { "id": 20, "id_usuario": 7, "contenido": "Taller de cocina italiana este sábado. Cupos limitados.", "fecha_publicacion": "20/04/2025" },
+  { "id": 21, "id_usuario": 8, "contenido": "Coreografía nueva terminada. Próximamente en el escenario!", "fecha_publicacion": "25/04/2025" },
+  { "id": 22, "id_usuario": 8, "contenido": "Cómo optimizar consultas SQL en aplicaciones grandes.", "fecha_publicacion": "28/04/2025" },
+  { "id": 23, "id_usuario": 8, "contenido": "Clase de yoga al aire libre mañana a las 7am. ¡Todos invitados!", "fecha_publicacion": "30/04/2025" },
+  { "id": 24, "id_usuario": 8, "contenido": "Media maratón completada! Tiempo: 1 hora 52 minutos.", "fecha_publicacion": "01/05/2025" },
+  { "id": 25, "id_usuario": 9, "contenido": "Nueva serie de acuarelas inspiradas en la naturaleza.", "fecha_publicacion": "02/05/2025" },
+  { "id": 26, "id_usuario": 9, "contenido": "Cover de 'Hotel California' ahora en mi canal de YouTube.", "fecha_publicacion": "03/05/2025" },
+  { "id": 27, "id_usuario": 9, "contenido": "Itinerario de 2 semanas por Tailandia. ¿Alguna sugerencia?", "fecha_publicacion": "04/05/2025" },
+  { "id": 28, "id_usuario": 10, "contenido": "Fotografía nocturna: la vía láctea desde el desierto.", "fecha_publicacion": "05/05/2025" },
+  { "id": 29, "id_usuario": 10, "contenido": "Club de lectura: este mes 'El nombre del viento'.", "fecha_publicacion": "05/05/2025" },
+  { "id": 30, "id_usuario": 10, "contenido": "Guía completa de TypeScript para principiantes.", "fecha_publicacion": "05/05/2025" }
+]);
+ 
+Likes: 
+
+db.likes.insertMany([
+  { "id": 1, "id_usuario": 1, "id_post": 1, "fecha_like": "20/01/2025" },
+  { "id": 2, "id_usuario": 1, "id_post": 1, "fecha_like": "21/01/2025" },
+  { "id": 3, "id_usuario": 1, "id_post": 2, "fecha_like": "25/01/2025" },
+  { "id": 4, "id_usuario": 2, "id_post": 2, "fecha_like": "26/01/2025" },
+  { "id": 5, "id_usuario": 2, "id_post": 3, "fecha_like": "30/01/2025" },
+  { "id": 6, "id_usuario": 2, "id_post": 4, "fecha_like": "05/02/2025" },
+  { "id": 7, "id_usuario": 3, "id_post": 5, "fecha_like": "10/02/2025" },
+  { "id": 8, "id_usuario": 4, "id_post": 6, "fecha_like": "15/02/2025" },
+  { "id": 9, "id_usuario": 4, "id_post": 7, "fecha_like": "20/02/2025" },
+  { "id": 10, "id_usuario": 4, "id_post": 8, "fecha_like": "25/02/2025" },
+  { "id": 11, "id_usuario": 4, "id_post": 9, "fecha_like": "01/03/2025" },
+  { "id": 12, "id_usuario": 4, "id_post": 10, "fecha_like": "05/03/2025" },
+  { "id": 13, "id_usuario": 5, "id_post": 11, "fecha_like": "10/03/2025" },
+  { "id": 14, "id_usuario": 5, "id_post": 12, "fecha_like": "15/03/2025" },
+  { "id": 15, "id_usuario": 5, "id_post": 13, "fecha_like": "20/03/2025" },
+  { "id": 16, "id_usuario": 6, "id_post": 14, "fecha_like": "25/03/2025" },
+  { "id": 17, "id_usuario": 6, "id_post": 15, "fecha_like": "30/03/2025" },
+  { "id": 18, "id_usuario": 6, "id_post": 16, "fecha_like": "01/04/2025" },
+  { "id": 19, "id_usuario": 7, "id_post": 17, "fecha_like": "05/04/2025" },
+  { "id": 20, "id_usuario": 7, "id_post": 18, "fecha_like": "10/04/2025" },
+  { "id": 21, "id_usuario": 7, "id_post": 19, "fecha_like": "15/04/2025" },
+  { "id": 22, "id_usuario": 8, "id_post": 20, "fecha_like": "20/04/2025" },
+  { "id": 23, "id_usuario": 9, "id_post": 21, "fecha_like": "25/04/2025" },
+  { "id": 24, "id_usuario": 9, "id_post": 22, "fecha_like": "28/04/2025" },
+  { "id": 25, "id_usuario": 9, "id_post": 23, "fecha_like": "30/04/2025" },
+  { "id": 26, "id_usuario": 9, "id_post": 24, "fecha_like": "01/05/2025" },
+  { "id": 27, "id_usuario": 9, "id_post": 25, "fecha_like": "02/05/2025" },
+  { "id": 28, "id_usuario": 10, "id_post": 26, "fecha_like": "03/05/2025" },
+  { "id": 29, "id_usuario": 10, "id_post": 27, "fecha_like": "04/05/2025" },
+  { "id": 30, "id_usuario": 10, "id_post": 28, "fecha_like": "05/05/2025" }
+]);
+ 
+Comentarios:
+
+db.comentarios.insertMany([
+  { "id": 1, "id_post": 1, "id_usuario": 1, "comentario": "¡Totalmente de acuerdo! Buen día para ti también.", "fecha_comentario": "20/01/2025" },
+  { "id": 2, "id_post": 1, "id_usuario": 2, "comentario": "Qué motivación para empezar la semana!", "fecha_comentario": "21/01/2025" },
+  { "id": 3, "id_post": 2, "id_usuario": 2, "comentario": "Felicidades Carlos! Qué tecnologías usaste?", "fecha_comentario": "25/01/2025" },
+  { "id": 4, "id_post": 2, "id_usuario": 2, "comentario": "Comparte el repo cuando puedas!", "fecha_comentario": "26/01/2025" },
+  { "id": 5, "id_post": 3, "id_usuario": 2, "comentario": "Me encantaría ver tu nueva obra!", "fecha_comentario": "30/01/2025" },
+  { "id": 6, "id_post": 4, "id_usuario": 2, "comentario": "Ya la escuché, es increíble!", "fecha_comentario": "05/02/2025" },
+  { "id": 7, "id_post": 5, "id_usuario": 3, "comentario": "Visita Kioto en abril para los cerezos en flor!", "fecha_comentario": "10/02/2025" },
+  { "id": 8, "id_post": 6, "id_usuario": 3, "comentario": "¡Ese ritmo es impresionante!", "fecha_comentario": "15/02/2025" },
+  { "id": 9, "id_post": 7, "id_usuario": 3, "comentario": "Uno de mis libros favoritos!", "fecha_comentario": "20/02/2025" },
+  { "id": 10, "id_post": 8, "id_usuario": 4, "comentario": "Las fotos quedaron espectaculares!", "fecha_comentario": "25/02/2025" },
+  { "id": 11, "id_post": 9, "id_usuario": 4, "comentario": "Se ve delicioso, lo probaré este fin de semana.", "fecha_comentario": "01/03/2025" },
+  { "id": 12, "id_post": 10, "id_usuario": 4, "comentario": "Justo lo que necesitaba, gracias!", "fecha_comentario": "05/03/2025" },
+  { "id": 13, "id_post": 11, "id_usuario": 5, "comentario": "El diseño se ve muy limpio y profesional.", "fecha_comentario": "10/03/2025" },
+  { "id": 14, "id_post": 12, "id_usuario": 5, "comentario": "¡Felicidades por el torneo!", "fecha_comentario": "15/03/2025" },
+  { "id": 15, "id_post": 13, "id_usuario": 5, "comentario": "La constancia es clave, sigue así!", "fecha_comentario": "20/03/2025" },
+  { "id": 16, "id_post": 14, "id_usuario": 6, "comentario": "Esperando con ansias el nuevo álbum!", "fecha_comentario": "25/03/2025" },
+  { "id": 17, "id_post": 15, "id_usuario": 6, "comentario": "¿Dónde será exactamente la exposición?", "fecha_comentario": "30/03/2025" },
+  { "id": 18, "id_post": 16, "id_usuario": 7, "comentario": "Qué ruta hiciste? Estoy buscando nuevas.", "fecha_comentario": "01/04/2025" },
+  { "id": 19, "id_post": 17, "id_usuario": 7, "comentario": "Las fotos son impresionantes, felicitaciones!", "fecha_comentario": "05/04/2025" },
+  { "id": 20, "id_post": 18, "id_usuario": 7, "comentario": "Qué tipo de framework estás desarrollando?", "fecha_comentario": "10/04/2025" },
+  { "id": 21, "id_post": 19, "id_usuario": 7, "comentario": "Te recomiendo 'Hyperion' de Dan Simmons.", "fecha_comentario": "15/04/2025" },
+  { "id": 22, "id_post": 20, "id_usuario": 8, "comentario": "Me interesa el taller, ¿cómo me inscribo?", "fecha_comentario": "20/04/2025" },
+  { "id": 23, "id_post": 21, "id_usuario": 8, "comentario": "¿Cuándo será la presentación?", "fecha_comentario": "25/04/2025" },
+  { "id": 24, "id_post": 22, "id_usuario": 8, "comentario": "Muy útil el artículo, gracias por compartir.", "fecha_comentario": "28/04/2025" },
+  { "id": 25, "id_post": 23, "id_usuario": 9, "comentario": "Llegaré temprano, gracias por la invitación!", "fecha_comentario": "30/04/2025" },
+  { "id": 26, "id_post": 24, "id_usuario": 9, "comentario": "¡Excelente tiempo! Sigue entrenando.", "fecha_comentario": "01/05/2025" },
+  { "id": 27, "id_post": 25, "id_usuario": 9, "comentario": "Me encanta tu estilo artístico.", "fecha_comentario": "02/05/2025" },
+  { "id": 28, "id_post": 26, "id_usuario": 10, "comentario": "Muy buen cover, tienes un gran talento.", "fecha_comentario": "03/05/2025" },
+  { "id": 29, "id_post": 27, "id_usuario": 10, "comentario": "No dejes de visitar Chiang Mai!", "fecha_comentario": "04/05/2025" },
+  { "id": 30, "id_post": 28, "id_usuario": 10, "comentario": "Increíble captura, ¿qué cámara usaste?", "fecha_comentario": "05/05/2025" }
+]);
+
+1. Consultas básicas 
+
+Inserción de un usuario nuevo
+
+db.usuarios.insertOne({
+  "id": 11,
+  "usuario": "Beam",
+  "email": "beam@example.com",
+  "nombre": "Benjamin",
+  "edad": 25,
+  "fecha_creacion": "05/05/2025"
+});
+
+Selección del nuevo usuario 
+
+db.usuarios.findOne({ "id": 11 });
+
+Actualización de la edad del nuevo usuario
+
+db.usuarios.updateOne(
+  { "id": 11 },
+  { $set: { "edad": 22 } }
+);
+
+Eliminación del usuario creado
+
+db.usuarios.deleteOne({ "id": 11 });
+
+2. Consultas con filtros y operadores. 
+
+Consulta de publicaciones del usuario con id igual a 1
+
+db.publicacines.find({ "id_usuario": { $eq: 1 } });
+
+Consulta de usuarios con una edad mayor a 31 
+
+db.usuarios.find({ "edad": { $gt: 31 } });
+
+Consulta de usuarios entre los 29 y 35 años de edad 
+
+db.usuarios.find({ "edad": { $gte: 29, $lte: 35 } });
+
+Consulta de los comentarios que contienen la palabra gracias
+
+db.comentarios.find({ "comentario": /gracias/i });
+
+Consulta de los likes de los usuarios con exención a los usuarios con id 1, 2, 4, 5, 9 y 10
+
+db.likes.find({
+  "id_usuario": { $nin: [1, 2, 4, 5, 9, 10] }
+})
+
+3. Consultas de agregación para calcular estadísticas (contar, sumar, promediar, etc.).
+
+Consulta de agregación para contar el número de likes de un usuario
+
+db.likes.aggregate([
+  // Filtramos solo los likes del usuario que nos interesa
+  {
+    $match: {
+      id_usuario: 9  // Cambia este valor por el ID del usuario que se desea 
+    }
+  },
+  // Contamos los documentos (likes) que cumplen el filtro
+  {
+    $count: "total_likes"
+  }
+]);
+
+Consulta de agregación para sumar las edades de los usuarios
+
+db.usuarios.aggregate([
+   // Agrupa todos los documentos
+  {
+    $group: {
+      _id: null, 
+      suma_edades: { $sum: "$edad" },
+      total_usuarios: { $sum: 1 }
+    }
+  }, 
+  
+  //muestra los resultados
+  {
+    $project: {
+      _id: 0,  // Excluye el campo _id
+      suma_total_edades: "$suma_edades",
+      cantidad_usuarios: "$total_usuarios"
+    }
+  }
+]);
+
+Consulta de agregación para promediar la edad de los usuarios
+
+db.usuarios.aggregate([
+  // agrupa todos los documentos juntos, calcula el promedio y cuenta el total de usuarios 
+  {
+    $group: {
+      _id: null,  
+      promedioEdad: { $avg: "$edad" },  
+      totalUsuarios: { $sum: 1 }  
+    }
+  },
+
+  // muestra los resultados
+  {
+    $project: {
+      _id: 0,  // Excluye el campo _id del resultado
+      "Promedio de Edad": { $round: ["$promedioEdad"] },  
+      "Total de Usuarios": "$totalUsuarios"
+    }
+  }
+]);
+
+Consulta de agregación para la moda de la edad de los usuarios
+
+db.usuarios.aggregate([
+  // Paso 1: agrupa por edad y cuenta cuántos usuarios hay en cada grupo
+  {
+    $group: {
+      _id: "$edad",
+      count: { $sum: 1 }
+    }
+  },
+  
+  // Paso 2: ordena los resultados por conteo descendente
+  {
+    $sort: { count: -1 }
+  },
+  
+  // Paso 3: limita a solo el primer resultado (el más frecuente)
+  {
+    $limit: 1
+  },
+  
+  // Paso 4: muestra los resultados
+  {
+    $project: {
+      _id: 0,
+      moda_edad: "$_id"
+    }
+  }
+]);
