@@ -1,0 +1,167 @@
+Códigos Apache HBase
+
+Descarga del dataset mediante la siguiente url
+https://raw.githubusercontent.com/Beamdeus/Tarea-4/refs/heads/main/df_1.csv
+
+Se crear un archivo .py llamado consultas.py el cual se conectará a Hbase, creará una tabla con sus respectivas familias y haremos algunas operaciones de cargar los datos en la tabla de Hbase, consultas de selección, filtrado y recorrido sobre los datos y realizará operaciones de escritura sobre los datos. 
+
+se carga el siguiente código:
+
+import happybase
+import pandas as pd
+from datetime import datetime
+
+# Bloque principal de ejecución
+try:
+    # 1. Establecer conexión con HBase
+    connection = happybase.Connection('localhost')
+    print("Conexión establecida con HBase")
+
+    # 2. Crear la tabla con las familias de columnas
+    table_name = 'registro_brechas'
+    families = {
+        'org': dict(),     # información de la organización
+        'breach': dict(),  # detalles de la brecha
+        'fuente': dict()   # fuentes de información
+    }
+
+    # Eliminar la tabla si ya existe
+    if table_name.encode() in connection.tables():
+        print(f"Eliminando tabla existente - {table_name}")
+        connection.delete_table(table_name, disable=True)
+
+    # Crear nueva tabla
+    connection.create_table(table_name, families)
+    table = connection.table(table_name)
+    print(f"Tabla '{table_name}' creada exitosamente")
+
+    # 3. Cargar datos del dataset 
+    breach_data = pd.read_csv('df_1.csv')
+    
+    # Iterar sobre el DataFrame usando el índice
+    for index, row in breach_data.iterrows():
+        # Generar row key basado en el nombre de la entidad y el año
+        row_key = f"{row['Entity'].replace(' ', '_')}_{row['Year']}".encode()
+        
+        # Organizar los datos en familias de columnas
+        data = {
+            b'org:nombre': str(row['Entity']).encode(),
+            b'org:tipo': str(row['Organization type']).encode(),
+            
+            b'breach:anio': str(row['Year']).encode(),
+            b'breach:registros': str(row['Records']).encode(),
+            b'breach:metodo': str(row['Method']).encode(),
+            
+            b'fuente:referencias': str(row['Sources']).encode()
+        }
+        
+        table.put(row_key, data)
+    
+    print("Datos de brechas cargados exitosamente")
+
+    # 4. Consultas y Análisis de Datos
+    print("\n=== Todas las brechas en la base de datos (primeros 3) ===")
+    count = 0
+    for key, data in table.scan():
+        if count < 3:  # Limitamos a 3 para el ejemplo
+            print(f"\nBrecha ID: {key.decode()}")
+            print(f"Entidad: {data[b'org:nombre'].decode()}")
+            print(f"Año: {data[b'breach:anio'].decode()}")
+            print(f"Registros afectados: {data[b'breach:registros'].decode()}")
+            count += 1
+
+    # 5. Filtrar brechas por tipo de organización
+    print("\n=== Brechas en organizaciones de salud ===")
+    for key, data in table.scan():
+        if data[b'org:tipo'].decode() == "healthcare":
+            print(f"\nEntidad: {data[b'org:nombre'].decode()}")
+            print(f"Registros: {data[b'breach:registros'].decode()}")
+            print(f"Método: {data[b'breach:metodo'].decode()}")
+
+    # 6. Análisis de métodos de brecha
+    print("\n=== Estadísticas por método de brecha ===")
+    method_stats = {}
+    for key, data in table.scan():
+        method = data[b'breach:metodo'].decode()
+        method_stats[method] = method_stats.get(method, 0) + 1
+    
+    for method, count in method_stats.items():
+        print(f"{method}: {count} ocurrencias")
+
+    # 7. Top 3 brechas con más registros afectados 
+    print("\n=== Top 3 brechas con más registros afectados ===")
+    
+    def parse_records(record_str):
+        """Convierte valores de registros a números, manejando casos especiales"""
+        try:
+            # Elimina comas y palabras, luego convierte a int
+            cleaned = ''.join(c for c in record_str if c.isdigit())
+            return int(cleaned) if cleaned else 0
+        except:
+            return 0  # Valor por defecto para registros no parseables
+
+    top_breaches = []
+    for key, data in table.scan():
+        try:
+            record_str = data[b'breach:registros'].decode()
+            records = parse_records(record_str)
+            
+            top_breaches.append({
+                'entidad': data[b'org:nombre'].decode(),
+                'registros': records,
+                'año': data[b'breach:anio'].decode(),
+                'metodo': data[b'breach:metodo'].decode()
+            })
+        except Exception as e:
+            print(f"Error procesando fila {key}: {str(e)}")
+            continue
+
+    # Ordenar y mostrar top 3
+    for breach in sorted(top_breaches, key=lambda x: x['registros'], reverse=True)[:3]:
+        print(f"\nEntidad: {breach['entidad']}")
+        print(f"Año: {breach['año']}")
+        print(f"Método: {breach['metodo']}")
+        print(f"Registros afectados: {breach['registros']:,}")
+
+    # 8. Análisis de registros afectados por tipo de organización 
+    print("\n=== Registros promedio afectados por tipo de organización ===")
+    org_type_stats = {}
+    org_type_counts = {}
+    
+    for key, data in table.scan():
+        try:
+            org_type = data[b'org:tipo'].decode()
+            record_str = data[b'breach:registros'].decode()
+            records = parse_records(record_str)
+            
+            org_type_stats[org_type] = org_type_stats.get(org_type, 0) + records
+            org_type_counts[org_type] = org_type_counts.get(org_type, 0) + 1
+        except Exception as e:
+            print(f"Error procesando fila {key}: {str(e)}")
+            continue
+    
+    for org_type in org_type_stats:
+        avg_records = org_type_stats[org_type] / org_type_counts[org_type]
+        print(f"{org_type}: {avg_records:,.2f} registros promedio")
+
+    # 9. Ejemplo de actualización de datos
+    breach_to_update = "21st_Century_Oncology_2016"
+    new_records = 2250000
+    table.put(breach_to_update.encode(), {b'breach:registros': str(new_records).encode()})
+    print(f"\nRegistros actualizados para la brecha: {breach_to_update}")
+
+    # 10. Ejemplo de eliminación 
+    breach_to_delete = "500px_2020"
+    table.delete(breach_to_delete.encode())
+    print(f"\nBrecha eliminada: {breach_to_delete}")
+
+except Exception as e:
+    print(f"Error: {str(e)}")
+finally:
+    # Cerrar la conexión
+    connection.close()
+    print("\nConexión cerrada")
+
+
+Por ultimo se ejecuta el archivo para visualizar los resultados
+python3 consultas.py
